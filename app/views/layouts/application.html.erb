@@ -18,12 +18,11 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module", defer: true %>
 
   </head>
 
   <body>
     <%= yield %>
-    <%= render "shared/bundle", entrypoint: "application" %>
-
   </body>
 </html>

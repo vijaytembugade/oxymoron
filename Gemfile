@@ -67,4 +67,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-# gem 'react-rails', '~> 3.2', '>= 3.2.1'
+gem "pry-byebug"

@@ -10,8 +10,3 @@ import { initializeLogger } from "common/logger";
 
 setAuthHeaders();
 initializeLogger();
-
-const componentsContext = { App };
-ReactRailsUJS.getConstructor = (name) => {
-  return componentsContext[name];
-};
