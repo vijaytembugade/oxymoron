@@ -7,6 +7,8 @@ import tasksApi from "../../apis/tasks";
 const Details = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editedTitle, setEditedTitle] = useState(tasks?.title);
+  const [isEditing, setEditing] = useState(false);
   const { slug } = useParams();
 
   const fetchTasks = async () => {
@@ -27,7 +29,33 @@ const Details = () => {
   }, []);
 
   console.log(tasks);
-  return <div>{tasks?.title}</div>;
+
+  const handleSubmit = async () => {
+    try {
+      await tasksApi.edit(slug, { title: editedTitle });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (isEditing === true) {
+    return (
+      <>
+        <input
+          value={editedTitle}
+          onChange={e => setEditedTitle(e.target.value)}
+        ></input>
+        <button onClick={handleSubmit}>Submit</button>
+      </>
+    );
+  }
+
+  return (
+    <div>
+      <h2>{tasks?.title}</h2>
+      <button onClick={() => setEditing(!isEditing)}>edit</button>
+    </div>
+  );
 };
 
 export default Details;

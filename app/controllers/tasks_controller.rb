@@ -27,6 +27,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def update
+    task = Task.find_by(slug: params[:slug])
+    task.update(task_params)
+    render status: :ok, json: {task:}
+  end
+
   private
     def task_params
       params.require(:task).permit(:title)
