@@ -14,4 +14,15 @@ class TasksController < ApplicationController
     # respond_with(@tasks)
   end
 
+  def create
+    task = Task.new(task_params)
+    task.save!
+    render status: :ok, json: {task:}
+  end
+
+  private
+
+    def task_params
+      params.require(:task).permit(:title)
+    end
 end

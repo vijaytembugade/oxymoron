@@ -1,23 +1,22 @@
-import axios from "axios";
-import React, {useEffect, useState} from "react";
-const baseUrl = 'http://localhost:3000'
+import React from "react";
+import { BrowserRouter, Link, Route, Routes } from "react-router";
+import Dashboard from "./Dashboard";
+import Form from "./Form";
+const baseUrl = "http://localhost:3000";
 
 const App = () => {
-    const [tasks, setTask] = useState([]);
-
-    useEffect(() => {
-        (async () => {
-            const { data } = await axios.get('tasks')
-            setTask(data?.tasks)
-        })();
-
-    }, [])
-
-    return <div>
-        {tasks.map((task) => {
-            return <p>{task?.title}</p>
-        })}
-    </div>
+  return (
+    <>
+      <BrowserRouter>
+      <Link to="/">Home</Link>
+      <Link to="/form">form</Link>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/form" element={<Form />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 };
 
-export default App;  
+export default App;

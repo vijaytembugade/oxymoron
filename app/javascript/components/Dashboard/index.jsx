@@ -1,13 +1,24 @@
-import React, { useState, useEffect } from "react";
-
-import { isNil, isEmpty, either } from "ramda";
-
-import tasksApi from "apis/tasks";
-import { PageLoader, PageTitle, Container } from "components/commons";
-import Table from "components/Tasks/Table";
+import { useEffect, useState } from "react";
+import React from 'react'
+import axios from "axios";
 
 const Dashboard = () => {
+  const [tasks, setTask] = useState([]);
 
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get("tasks");
+      setTask(data?.tasks);
+    })();
+  }, []);
+
+  return (
+    <div>
+      {tasks.map(task => {
+        return <p key={task?.id}>{task?.title}</p>;
+      })}
+    </div>
+  );
 };
 
 export default Dashboard;
