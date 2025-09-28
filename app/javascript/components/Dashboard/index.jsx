@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import React from 'react'
+import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [tasks, setTask] = useState([]);
@@ -15,7 +16,13 @@ const Dashboard = () => {
   return (
     <div>
       {tasks.map(task => {
-        return <p key={task?.id}>{task?.title}</p>;
+        return (
+          <div key={task?.id}>
+            <Link to={"task/"+ task?.slug} key={task?.id}>
+              {task?.title}
+            </Link>
+          </div>
+        );
       })}
     </div>
   );

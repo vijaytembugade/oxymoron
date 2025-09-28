@@ -20,8 +20,14 @@ class TasksController < ApplicationController
     render status: :ok, json: {task:}
   end
 
-  private
+  def show
+    task = Task.find_by(slug: params[:slug])
+    if task
+      render status: :ok, json: {task:}
+    end
+  end
 
+  private
     def task_params
       params.require(:task).permit(:title)
     end
