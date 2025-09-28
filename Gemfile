@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -25,9 +27,9 @@ gem "responders"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cable"
 gem "solid_cache"
 gem "solid_queue"
-gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -54,6 +56,8 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
   gem "web-console"
 end
 
@@ -63,4 +67,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'react-rails', "~> 2.7.1"
+# gem 'react-rails', '~> 3.2', '>= 3.2.1'
