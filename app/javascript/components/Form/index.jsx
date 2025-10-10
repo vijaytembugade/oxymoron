@@ -7,12 +7,12 @@ const Form = () => {
   const handleClick = async () => {
     try {
       await tasksApi.create({ task: { title: input } });
-      // history.push("/dashboard");
+      window.location.replace("/");
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
-  
+
   return (
     <>
       <input value={input} onChange={e => setInput(e.target.value)} />
@@ -21,4 +21,4 @@ const Form = () => {
   );
 };
 
-export default Form
+export default Form;

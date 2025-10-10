@@ -6,8 +6,13 @@ class Task < ApplicationRecord
   validates :slug, uniqueness: true
   before_create :set_slug
   validate :slug_not_changed
+  before_save :capitalize_title
 
   private
+
+    def capitalize_title
+      self.title = title.capitalize
+    end
   
     def set_slug
       title_slug = title.parameterize

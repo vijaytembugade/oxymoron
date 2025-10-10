@@ -33,6 +33,12 @@ class TasksController < ApplicationController
     render status: :ok, json: {task:}
   end
 
+  def destroy
+    task = Task.find_by(slug: params[:slug])
+    task.destroy()
+    render status: :ok, json: {message: "Task deleted successfully"}
+  end
+
   private
     def task_params
       params.require(:task).permit(:title)

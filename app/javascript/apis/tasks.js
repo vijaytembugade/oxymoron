@@ -1,10 +1,11 @@
-import axios from 'axios'
+import axios from "axios";
 
 const fetch = () => axios.get("/tasks");
 const create = payload => axios.post("/tasks", payload);
 const show = slug => axios.get(`/tasks/${slug}`);
-const edit = (slug,payload) => axios.put(`/tasks/${slug}`, payload);
+const edit = (slug, payload) => axios.put(`/tasks/${slug}`, payload);
+const destroy = slug => axios.delete(`/tasks/${slug}`);
 
-const tasksApi = { fetch, create , show, edit};
+const tasksApi = { fetch, create, show, edit, destroy };
 
 export default tasksApi;

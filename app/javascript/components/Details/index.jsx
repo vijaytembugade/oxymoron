@@ -33,6 +33,7 @@ const Details = () => {
   const handleSubmit = async () => {
     try {
       await tasksApi.edit(slug, { title: editedTitle });
+      window.location.replace("/");
     } catch (error) {
       console.log(error);
     }
