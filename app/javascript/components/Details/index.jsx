@@ -3,40 +3,37 @@ import React from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import tasksApi from "../../apis/tasks";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import UserSelect from "../Form/UserSelect";
 
 const Details = () => {
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [editedTitle, setEditedTitle] = useState(tasks?.title);
-  const [isEditing, setEditing] = useState(false);
+  const [selectedUser, setSelectedUser] = useState();
   const { slug } = useParams();
+  const { data, isPending, error } = useQuery({
+    queryKey: ["getTask", slug],
+    queryFn: () => tasksApi.show(slug).then(res => res?.data?.task),
+  });
 
-  const fetchTasks = async () => {
-    try {
-      const {
-        data: { task },
-      } = await tasksApi.show(slug);
-      setTasks(task);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [editedTitle, setEditedTitle] = useState("");
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+  const mutation = useMutation({
+    mutationFn: (editedTitle, selectedUser) =>
+      tasksApi.edit(slug, {
+        title: editedTitle,
+        assigned_user_id: selectedUser,
+      }),
+    onSuccess: data => {
+      console.log("Mutation Success:", data);
+    },
+    onError: error => {
+      console.error("Mutation Error:", error);
+    },
+  });
 
-  console.log(tasks);
+  const [isEditing, setEditing] = useState(false);
 
-  const handleSubmit = async () => {
-    try {
-      await tasksApi.edit(slug, { title: editedTitle });
-      window.location.replace("/");
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSubmit = () => {
+    mutation.mutate(editedTitle, selectedUser);
   };
 
   if (isEditing === true) {
@@ -47,13 +44,17 @@ const Details = () => {
           onChange={e => setEditedTitle(e.target.value)}
         ></input>
         <button onClick={handleSubmit}>Submit</button>
+        <UserSelect
+          selectedUser={selectedUser}
+          setSelectedUser={setSelectedUser}
+        />
       </>
     );
   }
 
   return (
     <div>
-      <h2>{tasks?.title}</h2>
+      <h2>{data?.title}</h2>
       <button onClick={() => setEditing(!isEditing)}>edit</button>
     </div>
   );

@@ -29,7 +29,7 @@ class TasksController < ApplicationController
 
   def update
     task = Task.find_by(slug: params[:slug])
-    task.update(task_params)
+    task.update!(task_params)
     render status: :ok, json: {task:}
   end
 
@@ -41,6 +41,6 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:title)
+      params.require(:task).permit(:title, :assigned_user_id)
     end
 end
