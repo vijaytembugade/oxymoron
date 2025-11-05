@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
+  # before_action :load_task!, only: %i[show update destroy]
   respond_to :html, :xml, :json
+  
   def index
     tasks = Task.all
     ## thie below fucking sentence is as same as -> render({status: :ok, json: {task: task}})
@@ -20,8 +22,8 @@ class TasksController < ApplicationController
     render status: :ok, json: {task:}
   end
 
-  def show
-    task = Task.find_by(slug: params[:slug])
+ def show
+    task = Task.includes(:assigned_user).find_by(slug: params[:slug])
     if task
       render status: :ok, json: {task:}
     end
@@ -42,5 +44,9 @@ class TasksController < ApplicationController
   private
     def task_params
       params.require(:task).permit(:title, :assigned_user_id)
+    end
+
+    def load_task!
+      @task = Task.find_by!(slug: params[:slug])
     end
 end
