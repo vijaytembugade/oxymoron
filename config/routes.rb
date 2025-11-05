@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   root "home#index"
   constraints(lambda { |req| req.format == :json }) do
     resources :tasks, except: %i[new edit], param: :slug, defaults: { format: 'json' }
-    resources :users, only: %i[index create]
-    resources :sessions, only: %i[create]
+    resources :users, only: %i[index create], defaults: { format: 'json' }
+    resources :sessions, only: %i[create], defaults: { format: 'json' }
   end
   # defaults format: :json do 
   #   resources :tasks, except: %i[new edit], param: :slug, defaults: { format: 'json' }

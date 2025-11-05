@@ -25,14 +25,18 @@ const App = () => {
         <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
           <LinkContainer>
-            <Link to="/">Home</Link>
-            <Link to="/form">form</Link>
-            <Link exact to="/signup">
-              Signup
-            </Link>
-            <Link exact to="/login">
-              Login
-            </Link>
+            {isAuthed && <Link to="/">Home</Link>}
+            {isAuthed && <Link to="/form">form</Link>}
+            {!isAuthed && (
+              <Link exact to="/signup">
+                Signup
+              </Link>
+            )}
+            {!isAuthed && (
+              <Link exact to="/login">
+                Login
+              </Link>
+            )}
           </LinkContainer>
           <Routes>
             <Route
@@ -42,7 +46,7 @@ const App = () => {
                 <PrivateRoute
                   exact
                   path="/"
-                  element={<Dashboard />}
+                  element={Dashboard}
                   condition={isAuthed}
                   redirectRoute="/login"
                 />
@@ -55,7 +59,7 @@ const App = () => {
                 <PrivateRoute
                   exact
                   path="/"
-                  element={<Form />}
+                  element={Form}
                   condition={isAuthed}
                   redirectRoute="/login"
                 />
@@ -68,7 +72,7 @@ const App = () => {
                 <PrivateRoute
                   exact
                   path="/"
-                  element={<Details />}
+                  element={Details}
                   condition={isAuthed}
                   redirectRoute="/login"
                 />

@@ -6,7 +6,7 @@ import { Route, Navigate } from "react-router-dom";
 // Usage example (inside <Routes>):
 // <PrivateRoute path="/dashboard" component={Dashboard} condition={isAuthed} redirectRoute="/login" />
 const PrivateRoute = ({
-  component: Component,
+  element: Component,
   condition,
   path,
   redirectRoute,
@@ -16,7 +16,7 @@ const PrivateRoute = ({
     return <Navigate to={redirectRoute} replace />;
   }
   // Pass remaining props to rendered component.
-  return <Route path={path} element={<Component {...rest} />} />;
+  return <Component />;
 };
 
 PrivateRoute.propTypes = {

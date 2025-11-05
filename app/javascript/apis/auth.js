@@ -6,7 +6,7 @@ const signup = payload =>
   });
 
 const login = payload =>
-  axios.post("/session", {
+  axios.post("/sessions", {
     login: payload,
   });
 

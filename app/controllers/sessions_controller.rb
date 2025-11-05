@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     unless @user.authenticate(login_params[:password])
       render_error("Incorrect credentials, try again.", :unauthorized)
     else 
-        render
+      render
     end
   end
 

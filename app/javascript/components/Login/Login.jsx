@@ -17,13 +17,13 @@ const Login = ({ onSubmit }) => {
     setSubmitting(true);
     try {
       const response = await authApi.login({ email, password });
-      setToLocalStorage({
+      await setToLocalStorage({
         authToken: response?.data?.authentication_token,
         email: email.toLowerCase(),
         userId: response.data.id,
         userName: response.data.name,
       });
-      setAuthHeaders();
+      await setAuthHeaders();
       window.location.href = "/";
     } finally {
       setSubmitting(false);
