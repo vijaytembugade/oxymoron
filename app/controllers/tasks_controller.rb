@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   def create
     task = Task.new(task_params)
     task.save!
-    render status: :ok, json: {task:}
+    render status: :ok, json: { message: t('successfully_created', entity: 'Task'), task: }
   end
 
  def show
