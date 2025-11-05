@@ -25,8 +25,8 @@ const App = () => {
         <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
           <LinkContainer>
-            <Link to="/form">form</Link>
             <Link to="/">Home</Link>
+            <Link to="/form">form</Link>
             <Link exact to="/signup">
               Signup
             </Link>
@@ -48,8 +48,32 @@ const App = () => {
                 />
               }
             />
-            <Route exact path="/form" element={<Form />} />
-            <Route exact path="/task/:slug" element={<Details />} />
+            <Route
+              exact
+              path="/form"
+              element={
+                <PrivateRoute
+                  exact
+                  path="/"
+                  element={<Form />}
+                  condition={isAuthed}
+                  redirectRoute="/login"
+                />
+              }
+            />
+            <Route
+              exact
+              path="/task/:slug"
+              element={
+                <PrivateRoute
+                  exact
+                  path="/"
+                  element={<Details />}
+                  condition={isAuthed}
+                  redirectRoute="/login"
+                />
+              }
+            />
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/login" element={<Login />} />
           </Routes>
