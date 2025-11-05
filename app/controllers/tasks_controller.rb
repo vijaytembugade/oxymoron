@@ -23,10 +23,11 @@ class TasksController < ApplicationController
   end
 
  def show
-    task = Task.includes(:assigned_user).find_by(slug: params[:slug])
-    if task
-      render status: :ok, json: {task:}
-    end
+    # task = Task.includes(:assigned_user).find_by(slug: params[:slug])
+    # if task
+    #   render status: :ok, json: {task:}
+    # end
+    render
   end
 
   def update
